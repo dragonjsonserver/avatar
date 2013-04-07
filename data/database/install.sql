@@ -1,0 +1,10 @@
+CREATE TABLE `avatars` (
+	`avatar_id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+	`modified` TIMESTAMP NOT NULL DEFAULT NOW() ON UPDATE NOW(),
+	`created` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
+	`account_id` BIGINT(20) UNSIGNED NOT NULL,
+	`gameround_id` BIGINT(20) UNSIGNED NOT NULL,
+	`name` VARCHAR(255) NOT NULL,
+	PRIMARY KEY (`avatar_id`),
+	UNIQUE KEY `gameround_id` (`gameround_id`, `name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -1,0 +1,30 @@
+{
+    "name": "dragonprojects/dragonjsonserveravatar",
+    "description": "Erweiterung für den DragonJsonServer zur Verwaltung von Avataren",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Christoph Herrmann",
+            "email": "developer@dragonprojects.de",
+            "homepage": "http://dragonjsonserver.de/",
+            "role": "Developer"
+        }
+    ],
+    "homepage": "http://dragonjsonserver.de/",
+    "require": {
+        "php": ">=5.4.0",
+        "zendframework/zendframework": "2.*",
+        "dragonprojects/dragonjsonserver": "dev-master",
+        "dragonprojects/dragonjsonserverdoctrine": "dev-master",
+        "dragonprojects/dragonjsonserveraccount": "dev-master",
+        "dragonprojects/dragonjsonservergameround": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "DragonJsonServerAvatar": "src/"
+        },
+        "classmap": [
+            "Module.php"
+        ]
+    }
+}
