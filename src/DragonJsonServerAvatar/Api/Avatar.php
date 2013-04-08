@@ -49,7 +49,7 @@ class Avatar
 		$serviceManager = $this->getServiceManager();
 
 		$session = $serviceManager->get('Session')->getSession();
-		$account = $serviceManager->get('Account')->getAccount($session->getAccountId());
+		$account = $serviceManager->get('Account')->getAccountByAccountId($session->getAccountId());
 		return $serviceManager->get('Avatar')->createAvatar($account, $gameround_id, $name);
 	}
 	
