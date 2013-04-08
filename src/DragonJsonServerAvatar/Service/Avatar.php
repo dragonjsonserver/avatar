@@ -72,6 +72,7 @@ class Avatar
 	/**
 	 * Entfernt den Avatar von der Spielrunde
 	 * @param \DragonJsonServerAvatar\Entity\Avatar $avatar
+	 * @return Avatar
 	 */
 	public function removeAvatar(\DragonJsonServerAvatar\Entity\Avatar $avatar)
 	{
