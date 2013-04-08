@@ -70,6 +70,24 @@ class Avatar
 	}
 	
 	/**
+	 * Entfernt den Avatar von der Spielrunde
+	 * @param \DragonJsonServerAvatar\Entity\Avatar $avatar
+	 */
+	public function removeAvatar(\DragonJsonServerAvatar\Entity\Avatar $avatar)
+	{
+		$entityManager = $this->getEntityManager();
+
+		$this->getEventManager()->trigger(
+			(new \DragonJsonServerAvatar\Event\RemoveAvatar())
+				->setTarget($this)
+				->setAvatar($avatar)
+		);
+		$entityManager->remove($avatar);
+		$entityManager->flush();
+		return $this;
+	}
+	
+	/**
 	 * Setzt den aktuellen Avatar
 	 * @param \DragonJsonServerAvatar\Entity\Avatar $avatar
 	 * @return Avatar

@@ -54,6 +54,20 @@ class Avatar
 	}
 	
 	/**
+	 * Entfernt den Avatar von der Spielrunde
+	 * @session
+	 * @avatar
+	 */
+	public function removeAvatar()
+	{
+		$serviceManager = $this->getServiceManager();
+
+		$serviceAvatar = $serviceManager->get('Avatar'); 
+		$avatar = $serviceAvatar->getAvatar();
+		return $serviceAvatar->removeAvatar($avatar);
+	}
+	
+	/**
 	 * Gibt alle Avatare zum aktuellen Account zurück
 	 * @return array
 	 * @session
