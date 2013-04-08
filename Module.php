@@ -92,5 +92,15 @@ class Module
 		        }
     		}
     	);
+    	$sharedManager->attach('DragonJsonServerAccount\Service\Account', 'removeaccount', 
+	    	function (\DragonJsonServerAccount\Event\RemoveAccount $removeAccount) {
+	    		$account = $removeAccount->getAccount();
+	    		$serviceAvatar = $this->getServiceManager()->get('Avatar');
+	    		$avatars = $serviceAvatar->getAvatarsByAccountId($account->getAccountId());
+	    		foreach ($avatars as $avatar) {
+	    			$serviceAvatar->removeAvatar($avatar);
+	    		}
+	    	}
+    	);
     }
 }
