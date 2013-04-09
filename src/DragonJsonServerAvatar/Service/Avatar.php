@@ -51,22 +51,25 @@ class Avatar
 	 * @param \DragonJsonServerAccount\Entity\Account $account
 	 * @param integer $gameround_id
 	 * @param string $name
+	 * @return \DragonJsonServerAvatar\Entity\Avatar
 	 */
 	public function createAvatar(\DragonJsonServerAccount\Entity\Account $account, $gameround_id, $name)
 	{
-		$entityManager = $this->getEntityManager();
-
 		$avatar = (new \DragonJsonServerAvatar\Entity\Avatar())
 			->setAccountId($account->getAccountId())
 			->setGameroundId($gameround_id)
 			->setName($name);
-		$entityManager->persist($avatar);
-		$entityManager->flush();
-		$this->getEventManager()->trigger(
-			(new \DragonJsonServerAvatar\Event\CreateAvatar())
-				->setTarget($this)
-				->setAvatar($avatar)
-		);
+		$this->getServiceManager()->get('Doctrine')->transactional(function ($entityManager) use ($account, $avatar) {
+			$entityManager->persist($avatar);
+			$entityManager->flush();
+			$this->getEventManager()->trigger(
+				(new \DragonJsonServerAvatar\Event\CreateAvatar())
+					->setTarget($this)
+					->setAccount($account)
+					->setAvatar($avatar)
+			);
+		});
+		return $avatar;
 	}
 	
 	/**
@@ -76,15 +79,15 @@ class Avatar
 	 */
 	public function removeAvatar(\DragonJsonServerAvatar\Entity\Avatar $avatar)
 	{
-		$entityManager = $this->getEntityManager();
-
-		$this->getEventManager()->trigger(
-			(new \DragonJsonServerAvatar\Event\RemoveAvatar())
-				->setTarget($this)
-				->setAvatar($avatar)
-		);
-		$entityManager->remove($avatar);
-		$entityManager->flush();
+		$this->getServiceManager()->get('Doctrine')->transactional(function ($entityManager) use ($avatar) {
+			$this->getEventManager()->trigger(
+				(new \DragonJsonServerAvatar\Event\RemoveAvatar())
+					->setTarget($this)
+					->setAvatar($avatar)
+			);
+			$entityManager->remove($avatar);
+			$entityManager->flush();
+		});
 		return $this;
 	}
 	

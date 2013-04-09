@@ -20,6 +20,26 @@ class CreateAvatar extends \Zend\EventManager\Event
 	protected $name = 'createavatar';
 
     /**
+     * Setzt den Account für den der Avatar erstellt wurde
+     * @param \DragonJsonServerAccount\Entity\Account $account
+     * @return CreateSession
+     */
+    public function setAccount(\DragonJsonServerAccount\Entity\Account $account)
+    {
+        $this->setParam('account', $account);
+        return $this;
+    }
+
+    /**
+     * Gibt den Account für den der Avatar erstellt wurde zurück
+     * @return \DragonJsonServerAccount\Entity\Account
+     */
+    public function getAccount()
+    {
+        return $this->getParam('account');
+    }
+
+    /**
      * Setzt den Avatar der erstellt wurde
      * @param \DragonJsonServerAvatar\Entity\Avatar $avatar
      * @return CreateAvatar
