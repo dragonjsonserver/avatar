@@ -11,15 +11,17 @@
  * @return array
  */
 return [
-	'avatar' => [
+	'dragonjsonserveraccount' => [
 		'namelength' => [
 			'min' => '3',
 			'max' => '255',
 		],
 	],
-    'apiclasses' => [
-        '\DragonJsonServerAvatar\Api\Avatar' => 'Avatar',
-    ],
+	'dragonjsonserver' => [
+	    'apiclasses' => [
+	        '\DragonJsonServerAvatar\Api\Avatar' => 'Avatar',
+	    ],
+	],
 	'service_manager' => [
 		'invokables' => [
             'Avatar' => '\DragonJsonServerAvatar\Service\Avatar',

@@ -34,14 +34,14 @@ class Avatar
 		if ($name != $filter->filter($name)) {
 			throw new \DragonJsonServer\Exception('invalid name', ['name' => $name]);
 		}
-		$configNamelength = $this->getServiceManager()->get('Config')['avatar']['namelength'];
+		$namelength = $this->getServiceManager()->get('Config')['dragonjsonserveravatar']['namelength'];
 		$validator = (new \Zend\Validator\StringLength())
-			->setMin($configNamelength['min'])
-			->setMax($configNamelength['max']);
+			->setMin($namelength['min'])
+			->setMax($namelength['max']);
 		if (!$validator->isValid($name)) {
 			throw new \DragonJsonServer\Exception(
 				'invalid name', 
-				['name' => $name, 'length' => $configNamelength]
+				['name' => $name, 'namelength' => $namelength]
 			);
 		}
 	}
