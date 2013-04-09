@@ -50,7 +50,7 @@ class Avatar
 
 		$session = $serviceManager->get('Session')->getSession();
 		$account = $serviceManager->get('Account')->getAccountByAccountId($session->getAccountId());
-		return $serviceManager->get('Avatar')->createAvatar($account, $gameround_id, $name);
+		return $serviceManager->get('Avatar')->createAvatar($account, $gameround_id, $name)->toArray();
 	}
 	
 	/**
@@ -64,7 +64,7 @@ class Avatar
 
 		$serviceAvatar = $serviceManager->get('Avatar'); 
 		$avatar = $serviceAvatar->getAvatar();
-		return $serviceAvatar->removeAvatar($avatar);
+		$serviceAvatar->removeAvatar($avatar);
 	}
 	
 	/**
