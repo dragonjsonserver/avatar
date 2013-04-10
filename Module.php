@@ -47,49 +47,39 @@ class Module
     public function init(\Zend\ModuleManager\ModuleManager $moduleManager)
     {
     	$sharedManager = $moduleManager->getEventManager()->getSharedManager();
-    	$sharedManager->attach('DragonJsonServer\Service\Server', 'request', 
-	    	function (\DragonJsonServer\Event\Request $eventRequest) {
-	    		$serviceManager = $this->getServiceManager();
-	    		$request = $eventRequest->getRequest();
-	    		list ($classname, $methodname) = $serviceManager->get('Server')->parseMethod($request->getMethod());
-	    		$classreflection = new \Zend\Code\Reflection\ClassReflection($classname);
-	    		if (!$classreflection->getMethod($methodname)->getDocBlock()->hasTag('avatar')) {
+    	$sharedManager->attach('DragonJsonServerApiannotation\Module', 'request', 
+	    	function (\DragonJsonServerApiannotation\Event\Request $eventRequest) {
+	    		if ($eventRequest->getTag()->getName() != 'avatar') {
 	    			return;
 	    		}
 	    		$session = $serviceManager->get('Session')->getSession();
 	    		if (null === $session) {
-					throw new \DragonJsonServer\Exception('missing session');
+	    			throw new \DragonJsonServer\Exception('missing session');
 	    		}
 	    		$serviceAvatar = $serviceManager->get('Avatar');
-	    		$avatar = $serviceAvatar->getAvatarByAvatarId($request->getParam('avatar_id'));
+	    		$avatar = $serviceAvatar->getAvatarByAvatarId($eventRequest->getRequest()->getParam('avatar_id'));
 	    		if ($session->getAccountId() != $avatar->getAccountId()) {
-					throw new \DragonJsonServer\Exception(
-						'account_id not match', 
-						['session' => $session->toArray(), 'avatar' => $avatar->toArray()] 
-					);
+	    			throw new \DragonJsonServer\Exception(
+	    					'account_id not match',
+	    					['session' => $session->toArray(), 'avatar' => $avatar->toArray()]
+	    			);
 	    		}
 	    		$serviceAvatar->setAvatar($avatar);
 	    	}
     	);
-    	$sharedManager->attach('DragonJsonServer\Service\Server', 'servicemap', 
-    		function (\DragonJsonServer\Event\Servicemap $eventServicemap) {
-	    		$serviceManager = $this->getServiceManager();
-	    		$serviceServer = $serviceManager->get('Server');
-		        foreach ($eventServicemap->getServicemap()->getServices() as $method => $service) {
-	    			list ($classname, $methodname) = $serviceServer->parseMethod($method);
-		            $classreflection = new \Zend\Code\Reflection\ClassReflection($classname);
-		            if (!$classreflection->getMethod($methodname)->getDocBlock()->hasTag('avatar')) {
-		                continue;
-		            }
-		            $service->addParams([
-		                [
-		                    'type' => 'integer',
-		                    'name' => 'avatar_id',
-		                    'optional' => false,
-		                ],
-		            ]);
-		        }
-    		}
+    	$sharedManager->attach('DragonJsonServerApiannotation\Module', 'servicemap', 
+	    	function (\DragonJsonServerApiannotation\Event\Servicemap $eventServicemap) {
+	    		if ($eventServicemap->getTag()->getName() != 'avatar') {
+	    			return;
+	    		}
+	    		$eventServicemap->getService()->addParams([
+    				[
+	                    'type' => 'integer',
+	                    'name' => 'avatar_id',
+	    				'optional' => false,
+    				],
+    			]);
+	    	}
     	);
     	$sharedManager->attach('DragonJsonServerAccount\Service\Account', 'removeaccount', 
 	    	function (\DragonJsonServerAccount\Event\RemoveAccount $removeAccount) {

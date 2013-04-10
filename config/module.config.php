@@ -17,6 +17,9 @@ return [
 			'max' => '255',
 		],
 	],
+	'dragonjsonserverapiannotation' => [
+		'annotations' => ['avatar'],
+	],
 	'dragonjsonserver' => [
 	    'apiclasses' => [
 	        '\DragonJsonServerAvatar\Api\Avatar' => 'Avatar',
