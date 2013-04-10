@@ -57,7 +57,8 @@ class Module
 	    			throw new \DragonJsonServer\Exception('missing session');
 	    		}
 	    		$serviceAvatar = $serviceManager->get('Avatar');
-	    		$avatar = $serviceAvatar->getAvatarByAvatarId($eventRequest->getRequest()->getParam('avatar_id'));
+	    		$avatar_id = $eventRequest->getRequest()->getParam('avatar_id');
+	    		$avatar = $serviceAvatar->getAvatarByAvatarId($avatar_id);
 	    		if ($session->getAccountId() != $avatar->getAccountId()) {
 	    			throw new \DragonJsonServer\Exception(
 	    					'account_id not match',
