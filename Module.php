@@ -51,8 +51,7 @@ class Module
 	    	function (\DragonJsonServer\Event\Request $eventRequest) {
 	    		$serviceManager = $this->getServiceManager();
 	    		$request = $eventRequest->getRequest();
-	    		$method = $request->getMethod();
-	    		list ($classname, $methodname) = $serviceManager->get('Server')->parseMethod($method);
+	    		list ($classname, $methodname) = $serviceManager->get('Server')->parseMethod($request->getMethod());
 	    		$classreflection = new \Zend\Code\Reflection\ClassReflection($classname);
 	    		if (!$classreflection->getMethod($methodname)->getDocBlock()->hasTag('avatar')) {
 	    			return;
