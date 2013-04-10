@@ -11,7 +11,7 @@
  * @return array
  */
 return [
-	'dragonjsonserveraccount' => [
+	'dragonjsonserveravatar' => [
 		'namelength' => [
 			'min' => '3',
 			'max' => '255',
