@@ -52,6 +52,7 @@ class Module
 	    		if ($eventRequest->getTag()->getName() != 'avatar') {
 	    			return;
 	    		}
+	    		$serviceManager = $this->getServiceManager();
 	    		$session = $serviceManager->get('Session')->getSession();
 	    		if (null === $session) {
 	    			throw new \DragonJsonServer\Exception('missing session');
