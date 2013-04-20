@@ -48,24 +48,23 @@ class Avatar
 
 	/**
 	 * Erstellt einen Avatar auf der Spielrunde
-	 * @param \DragonJsonServerAccount\Entity\Account $account
+	 * @param integer $account_id
 	 * @param integer $gameround_id
 	 * @param string $name
 	 * @return \DragonJsonServerAvatar\Entity\Avatar
 	 */
-	public function createAvatar(\DragonJsonServerAccount\Entity\Account $account, $gameround_id, $name)
+	public function createAvatar($account_id, $gameround_id, $name)
 	{
 		$avatar = (new \DragonJsonServerAvatar\Entity\Avatar())
-			->setAccountId($account->getAccountId())
+			->setAccountId($account_id)
 			->setGameroundId($gameround_id)
 			->setName($name);
-		$this->getServiceManager()->get('Doctrine')->transactional(function ($entityManager) use ($account, $avatar) {
+		$this->getServiceManager()->get('Doctrine')->transactional(function ($entityManager) use ($avatar) {
 			$entityManager->persist($avatar);
 			$entityManager->flush();
 			$this->getEventManager()->trigger(
 				(new \DragonJsonServerAvatar\Event\CreateAvatar())
 					->setTarget($this)
-					->setAccount($account)
 					->setAvatar($avatar)
 			);
 		});
