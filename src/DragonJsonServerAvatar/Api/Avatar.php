@@ -18,6 +18,7 @@ class Avatar
 
 	/**
 	 * Validiert die übergebene GameroundID und Namen
+	 * @param integer $gameround_id
 	 * @param string $name
      * @throws \DragonJsonServer\Exception
      * @session
@@ -27,9 +28,9 @@ class Avatar
 		$serviceManager = $this->getServiceManager();
 
 		$gameround = $serviceManager->get('Gameround')->getGameroundByGameroundId($gameround_id);
-		$avatarService = $serviceManager->get('Avatar');
-		$avatarService->validateName($name);
-		if (null !== $avatarService->getAvatarByGameroundIdAndName($gameround_id, $name, false)) {
+		$serviceAvatar = $serviceManager->get('Avatar');
+		$serviceAvatar->validateName($name);
+		if (null !== $serviceAvatar->getAvatarByGameroundIdAndName($gameround_id, $name, false)) {
 			throw new \DragonJsonServer\Exception(
 				'gameround_id and name not unique', 
 				['gameround_id' => $gameround_id, 'name' => $name]
@@ -78,5 +79,20 @@ class Avatar
 		$session = $serviceManager->get('Session')->getSession();
 		$avatars = $serviceManager->get('Avatar')->getAvatarsByAccountId($session->getAccountId());
 		return $serviceManager->get('Doctrine')->toArray($avatars);
+	}
+	
+	/**
+	 * Gibt den Avatar auf der Spielrunde mit dem Namen zurück
+	 * @param string $name
+	 * @return array
+	 * @session
+	 * @avatar
+	 */
+	public function getAvatarByName($name)
+	{
+		$serviceManager = $this->getServiceManager();
+
+		$serviceAvatar = $serviceManager->get('Avatar');
+		return $serviceAvatar->getAvatarByGameroundIdAndName($serviceAvatar->getAvatar()->getGameroundId(), $name)->toArray();
 	}
 }
