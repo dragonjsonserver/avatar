@@ -135,7 +135,7 @@ class Avatar
 	 * @param integer $gameround_id
 	 * @param string $name
 	 * @param boolean $throwException
-	 * @return \DragonJsonServerAvatar\Entity\Avatar
+	 * @return \DragonJsonServerAvatar\Entity\Avatar|null
      * @throws \DragonJsonServer\Exception
 	 */
 	public function getAvatarByGameroundIdAndName($gameround_id, $name, $throwException = true)
