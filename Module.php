@@ -84,8 +84,8 @@ class Module
 	    	}
     	);
     	$sharedManager->attach('DragonJsonServerAccount\Service\Account', 'removeaccount', 
-	    	function (\DragonJsonServerAccount\Event\RemoveAccount $removeAccount) {
-	    		$account = $removeAccount->getAccount();
+	    	function (\DragonJsonServerAccount\Event\RemoveAccount $eventRemoveAccount) {
+	    		$account = $eventRemoveAccount->getAccount();
 	    		$serviceAvatar = $this->getServiceManager()->get('Avatar');
 	    		$avatars = $serviceAvatar->getAvatarsByAccountId($account->getAccountId());
 	    		foreach ($avatars as $avatar) {
