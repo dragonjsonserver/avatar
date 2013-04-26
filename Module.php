@@ -49,7 +49,7 @@ class Module
     	$sharedManager = $moduleManager->getEventManager()->getSharedManager();
     	$sharedManager->attach('DragonJsonServerApiannotation\Module', 'request', 
 	    	function (\DragonJsonServerApiannotation\Event\Request $eventRequest) {
-	    		if ($eventRequest->getTag()->getName() != 'avatar') {
+	    		if (!$eventRequest->getAnnotation() instanceof \DragonJsonServerAvatar\Annotation\Avatar) {
 	    			return;
 	    		}
 	    		$serviceManager = $this->getServiceManager();
@@ -71,7 +71,7 @@ class Module
     	);
     	$sharedManager->attach('DragonJsonServerApiannotation\Module', 'servicemap', 
 	    	function (\DragonJsonServerApiannotation\Event\Servicemap $eventServicemap) {
-	    		if ($eventServicemap->getTag()->getName() != 'avatar') {
+	    		if (!$eventServicemap->getAnnotation() instanceof \DragonJsonServerAvatar\Annotation\Avatar) {
 	    			return;
 	    		}
 	    		$eventServicemap->getService()->addParams([

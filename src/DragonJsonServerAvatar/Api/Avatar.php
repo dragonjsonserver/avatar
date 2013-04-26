@@ -21,7 +21,7 @@ class Avatar
 	 * @param integer $gameround_id
 	 * @param string $name
      * @throws \DragonJsonServer\Exception
-     * @session
+     * @DragonJsonServerAccount\Annotation\Session
 	 */
 	public function validateGameroundIdAndName($gameround_id, $name)
 	{
@@ -42,7 +42,7 @@ class Avatar
 	 * Erstellt einen Avatar auf der Spielrunde
 	 * @param integer $gameround_id
 	 * @param string $name
-	 * @session
+	 * @DragonJsonServerAccount\Annotation\Session
 	 */
 	public function createAvatar($gameround_id, $name)
 	{
@@ -55,8 +55,8 @@ class Avatar
 	
 	/**
 	 * Entfernt den Avatar von der Spielrunde
-	 * @session
-	 * @avatar
+	 * @DragonJsonServerAccount\Annotation\Session
+	 * @DragonJsonServerAvatar\Annotation\Avatar
 	 */
 	public function removeAvatar()
 	{
@@ -70,7 +70,7 @@ class Avatar
 	/**
 	 * Gibt alle Avatare zum aktuellen Account zurück
 	 * @return array
-	 * @session
+	 * @DragonJsonServerAccount\Annotation\Session
 	 */
 	public function getAvatars()
 	{
@@ -85,8 +85,8 @@ class Avatar
 	 * Gibt den Avatar auf der Spielrunde mit dem Namen zurück
 	 * @param string $name
 	 * @return array
-	 * @session
-	 * @avatar
+	 * @DragonJsonServerAccount\Annotation\Session
+	 * @DragonJsonServerAvatar\Annotation\Avatar
 	 */
 	public function getAvatarByName($name)
 	{
