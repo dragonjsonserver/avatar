@@ -34,7 +34,7 @@ class Avatar
 		if (null !== $avatar) {
 			throw new \DragonJsonServer\Exception(
 				'gameround_id and name not unique', 
-				['gameround_id' => $gameround_id, 'name' => $name]
+				['gameround_id' => $gameround_id, 'name' => $name, 'avatar' => $avatar->toArray()]
 			);
 		}
 	}
