@@ -30,7 +30,8 @@ class Avatar
 		$gameround = $serviceManager->get('Gameround')->getGameroundByGameroundId($gameround_id);
 		$serviceAvatar = $serviceManager->get('Avatar');
 		$serviceAvatar->validateName($name);
-		if (null !== $serviceAvatar->getAvatarByGameroundIdAndName($gameround_id, $name, false)) {
+		$avatar = $serviceAvatar->getAvatarByGameroundIdAndName($gameround_id, $name, false);
+		if (null !== $avatar) {
 			throw new \DragonJsonServer\Exception(
 				'gameround_id and name not unique', 
 				['gameround_id' => $gameround_id, 'name' => $name]
