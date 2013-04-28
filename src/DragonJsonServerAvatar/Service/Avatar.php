@@ -120,12 +120,9 @@ class Avatar
 	{
 		$entityManager = $this->getEntityManager();
 
-		$conditions = ['avatar_id' => $avatar_id];
-		$avatar = $entityManager
-			->getRepository('\DragonJsonServerAvatar\Entity\Avatar')
-		    ->findOneBy($conditions);
+		$avatar = $entityManager->find('\DragonJsonServerAvatar\Entity\Avatar', $avatar_id);
 		if (null === $avatar) {
-			throw new \DragonJsonServer\Exception('invalid avatar_id', $conditions);
+			throw new \DragonJsonServer\Exception('invalid avatar_id', ['avatar_id' => $avatar_id]);
 		}
 		return $avatar;
 	}
