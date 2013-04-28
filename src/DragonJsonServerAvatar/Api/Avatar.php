@@ -69,6 +69,20 @@ class Avatar
 	}
 	
 	/**
+	 * Gibt den aktuellen Avatar zurück
+	 * @return array
+	 * @DragonJsonServerAccount\Annotation\Session
+	 * @DragonJsonServerAvatar\Annotation\Avatar
+	 */
+	public function getAvatar()
+	{
+		$serviceManager = $this->getServiceManager();
+
+		$serviceAvatar = $serviceManager->get('Avatar');
+		return $avatar = $serviceAvatar->getAvatar()->toArray();
+	}
+	
+	/**
 	 * Gibt alle Avatare zum aktuellen Account zurück
 	 * @return array
 	 * @DragonJsonServerAccount\Annotation\Session
