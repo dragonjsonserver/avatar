@@ -150,6 +150,29 @@ class Avatar
 	}
 	
 	/**
+	 * Gibt die Avatare passend zur übergebenen GameroundID und Namen zurück
+	 * @param integer $gameround_id
+	 * @param string $name
+	 * @return array
+     * @throws \DragonJsonServer\Exception
+	 */
+	public function searchAvatarsByGameroundIdAndName($gameround_id, $name)
+	{
+		$entityManager = $this->getEntityManager();
+
+		$avatars = $entityManager
+			->createQuery('
+				SELECT avatar FROM \DragonJsonServerAvatar\Entity\Avatar avatar
+				WHERE
+					avatar.gameround_id = :gameround_id
+					AND
+					avatar.name LIKE :name
+			')
+			->execute(['gameround_id' => $gameround_id, 'name' => '%' . $name . '%']);
+		return $avatars;
+	}
+	
+	/**
 	 * Gibt die Avatare mit der übergebenen AccountID zurück
 	 * @param integer $account_id
 	 * @return array

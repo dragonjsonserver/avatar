@@ -83,17 +83,19 @@ class Avatar
 	}
 	
 	/**
-	 * Gibt den Avatar auf der Spielrunde mit dem Namen zurück
+	 * Gibt die Avatare passend zum übergebenen Namen zurück
 	 * @param string $name
 	 * @return array
 	 * @DragonJsonServerAccount\Annotation\Session
 	 * @DragonJsonServerAvatar\Annotation\Avatar
 	 */
-	public function getAvatarByName($name)
+	public function searchAvatarsByName($name)
 	{
 		$serviceManager = $this->getServiceManager();
 
 		$serviceAvatar = $serviceManager->get('Avatar');
-		return $serviceAvatar->getAvatarByGameroundIdAndName($serviceAvatar->getAvatar()->getGameroundId(), $name)->toArray();
+		$avatar = $serviceAvatar->getAvatar();
+		$avatars = $serviceAvatar->searchAvatarsByGameroundIdAndName($avatar->getGameroundId(), $name);
+		return $serviceManager->get('Doctrine')->toArray($avatars);
 	}
 }
