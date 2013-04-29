@@ -26,6 +26,7 @@ class Avatar
     /**
 	 * Validiert den übergebenen Namen
 	 * @param string $name
+	 * @return Avatar
      * @throws \DragonJsonServer\Exception
 	 */
 	public function validateName($name)
@@ -44,6 +45,7 @@ class Avatar
 				['name' => $name, 'namelength' => $namelength]
 			);
 		}
+		return $this;
 	}
 
 	/**
