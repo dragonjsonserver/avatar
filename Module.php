@@ -47,7 +47,7 @@ class Module
     public function init(\Zend\ModuleManager\ModuleManager $moduleManager)
     {
     	$sharedManager = $moduleManager->getEventManager()->getSharedManager();
-    	$sharedManager->attach('DragonJsonServerApiannotation\Module', 'request', 
+    	$sharedManager->attach('DragonJsonServerApiannotation\Module', 'Request', 
 	    	function (\DragonJsonServerApiannotation\Event\Request $eventRequest) {
 	    		if (!$eventRequest->getAnnotation() instanceof \DragonJsonServerAvatar\Annotation\Avatar) {
 	    			return;
@@ -69,7 +69,7 @@ class Module
 	    		$serviceAvatar->setAvatar($avatar);
 	    	}
     	);
-    	$sharedManager->attach('DragonJsonServerApiannotation\Module', 'servicemap', 
+    	$sharedManager->attach('DragonJsonServerApiannotation\Module', 'Servicemap', 
 	    	function (\DragonJsonServerApiannotation\Event\Servicemap $eventServicemap) {
 	    		if (!$eventServicemap->getAnnotation() instanceof \DragonJsonServerAvatar\Annotation\Avatar) {
 	    			return;
@@ -83,7 +83,7 @@ class Module
     			]);
 	    	}
     	);
-    	$sharedManager->attach('DragonJsonServerAccount\Service\Account', 'removeaccount', 
+    	$sharedManager->attach('DragonJsonServerAccount\Service\Account', 'RemoveAccount', 
 	    	function (\DragonJsonServerAccount\Event\RemoveAccount $eventRemoveAccount) {
 	    		$account = $eventRemoveAccount->getAccount();
 	    		$serviceAvatar = $this->getServiceManager()->get('Avatar');

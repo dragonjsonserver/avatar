@@ -17,7 +17,7 @@ class RemoveAvatar extends \Zend\EventManager\Event
 	/**
 	 * @var string
 	 */
-	protected $name = 'removeavatar';
+	protected $name = 'RemoveAvatar';
 
     /**
      * Setzt den Avatar bevor er entfernt wird

@@ -17,7 +17,7 @@ class CreateAvatar extends \Zend\EventManager\Event
 	/**
 	 * @var string
 	 */
-	protected $name = 'createavatar';
+	protected $name = 'CreateAvatar';
 
     /**
      * Setzt den Avatar der erstellt wurde
