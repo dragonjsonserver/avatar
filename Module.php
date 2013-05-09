@@ -15,6 +15,7 @@ namespace DragonJsonServerAvatar;
 class Module
 {
     use \DragonJsonServer\ServiceManagerTrait;
+	use \DragonJsonServer\EventManagerTrait;
 	
     /**
      * Gibt die Konfiguration des Moduls zurück
@@ -59,13 +60,12 @@ class Module
 	    		}
 	    		$serviceAvatar = $serviceManager->get('Avatar');
 	    		$avatar_id = $eventRequest->getRequest()->getParam('avatar_id');
-	    		$avatar = $serviceAvatar->getAvatarByAvatarId($avatar_id);
-	    		if ($session->getAccountId() != $avatar->getAccountId()) {
-	    			throw new \DragonJsonServer\Exception(
-	    					'account_id not match',
-	    					['session' => $session->toArray(), 'avatar' => $avatar->toArray()]
-	    			);
-	    		}
+	    		$avatar = $serviceAvatar->getAvatarByAvatarIdAndSession($avatar_id, $session);
+				$this->getEventManager()->trigger(
+					(new \DragonJsonServerAvatar\Event\LoadAvatar())
+						->setTarget($this)
+						->setAvatar($avatar)
+				);
 	    		$serviceAvatar->setAvatar($avatar);
 	    	}
     	);

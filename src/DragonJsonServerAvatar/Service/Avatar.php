@@ -130,6 +130,25 @@ class Avatar
 	}
 	
 	/**
+	 * Gibt den Avatar mit der übergebenen AvatarId und Session zurück
+	 * @param integer $avatar_id
+	 * @param \DragonJsonServerAccount\Entity\Session $session
+	 * @return \DragonJsonServerAvatar\Entity\Avatar
+     * @throws \DragonJsonServer\Exception
+	 */
+	public function getAvatarByAvatarIdAndSession($avatar_id, \DragonJsonServerAccount\Entity\Session $session)
+	{
+		$avatar = $this->getAvatarByAvatarId($avatar_id);
+		if ($session->getAccountId() != $avatar->getAccountId()) {
+			throw new \DragonJsonServer\Exception(
+				'account_id not match',
+				['session' => $session->toArray(), 'avatar' => $avatar->toArray()]
+			);
+		}
+		return $avatar;
+	}
+	
+	/**
 	 * Gibt den Avatar mit der übergebenen Spielrunde und dem Namen zurück
 	 * @param integer $gameround_id
 	 * @param string $name
