@@ -69,6 +69,7 @@ class Avatar
 	public function toArray()
 	{
 		return [
+			'entity' => 'Avatar',
 			'avatar_id' => $this->getAvatarId(),
 			'modified' => $this->getModifiedTimestamp(),
 			'created' => $this->getCreatedTimestamp(),
