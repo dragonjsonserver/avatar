@@ -34,6 +34,17 @@ class Avatar
 	protected $name;
 	
 	/**
+	 * Setzt die ID des Avatars
+	 * @param integer $avatar_id
+	 * @return Avatar
+	 */
+	protected function setAvatarId($avatar_id)
+	{
+		$this->avatar_id = $avatar_id;
+		return $this;
+	}
+	
+	/**
 	 * Gibt die ID des Avatars zurück
 	 * @return integer
 	 */
@@ -63,13 +74,29 @@ class Avatar
 	}
 	
 	/**
+	 * Setzt die Attribute des Avatars aus dem Array
+	 * @param array $array
+	 * @return Avatar
+	 */
+	public function fromArray(array $array)
+	{
+		return $this
+			->setAvatarId($array['avatar_id'])
+			->setModifiedTimestamp($array['modified'])
+			->setCreatedTimestamp($array['created'])
+			->setAccountId($array['account_id'])
+			->setGameroundId($array['gameround_id'])
+			->setName($array['name']);
+	}
+	
+	/**
 	 * Gibt die Attribute des Avatars als Array zurück
 	 * @return array
 	 */
 	public function toArray()
 	{
 		return [
-			'entity' => 'Avatar',
+			'__className' => __CLASS__,
 			'avatar_id' => $this->getAvatarId(),
 			'modified' => $this->getModifiedTimestamp(),
 			'created' => $this->getCreatedTimestamp(),
