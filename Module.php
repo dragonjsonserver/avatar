@@ -54,11 +54,11 @@ class Module
 	    			return;
 	    		}
 	    		$serviceManager = $this->getServiceManager();
-	    		$session = $serviceManager->get('Session')->getSession();
+	    		$session = $serviceManager->get('\DragonJsonServerAccount\Service\Session')->getSession();
 	    		if (null === $session) {
 	    			throw new \DragonJsonServer\Exception('missing session');
 	    		}
-	    		$serviceAvatar = $serviceManager->get('Avatar');
+	    		$serviceAvatar = $serviceManager->get('\DragonJsonServerAvatar\Service\Avatar');
 	    		$avatar_id = $eventRequest->getRequest()->getParam('avatar_id');
 	    		$avatar = $serviceAvatar->getAvatarByAvatarIdAndSession($avatar_id, $session);
 				$this->getEventManager()->trigger(
@@ -86,7 +86,7 @@ class Module
     	$sharedManager->attach('DragonJsonServerAccount\Service\Account', 'RemoveAccount', 
 	    	function (\DragonJsonServerAccount\Event\RemoveAccount $eventRemoveAccount) {
 	    		$account = $eventRemoveAccount->getAccount();
-	    		$serviceAvatar = $this->getServiceManager()->get('Avatar');
+	    		$serviceAvatar = $this->getServiceManager()->get('\DragonJsonServerAvatar\Service\Avatar');
 	    		$avatars = $serviceAvatar->getAvatarsByAccountId($account->getAccountId());
 	    		foreach ($avatars as $avatar) {
 	    			$serviceAvatar->removeAvatar($avatar);

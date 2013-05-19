@@ -27,8 +27,8 @@ class Avatar
 	{
 		$serviceManager = $this->getServiceManager();
 
-		$gameround = $serviceManager->get('Gameround')->getGameroundByGameroundId($gameround_id);
-		$serviceAvatar = $serviceManager->get('Avatar');
+		$gameround = $serviceManager->get('\DragonJsonServerGameround\Service\Gameround')->getGameroundByGameroundId($gameround_id);
+		$serviceAvatar = $serviceManager->get('\DragonJsonServerAvatar\Service\Avatar');
 		$serviceAvatar->validateName($name);
 		$avatar = $serviceAvatar->getAvatarByGameroundIdAndName($gameround_id, $name, false);
 		if (null !== $avatar) {
@@ -50,8 +50,8 @@ class Avatar
 		$this->validateGameroundIdAndName($gameround_id, $name);
 		$serviceManager = $this->getServiceManager();
 
-		$session = $serviceManager->get('Session')->getSession();
-		return $serviceManager->get('Avatar')->createAvatar($session->getAccountId(), $gameround_id, $name)->toArray();
+		$session = $serviceManager->get('\DragonJsonServerAccount\Service\Session')->getSession();
+		return $serviceManager->get('\DragonJsonServerAvatar\Service\Avatar')->createAvatar($session->getAccountId(), $gameround_id, $name)->toArray();
 	}
 	
 	/**
@@ -63,7 +63,7 @@ class Avatar
 	{
 		$serviceManager = $this->getServiceManager();
 
-		$serviceAvatar = $serviceManager->get('Avatar'); 
+		$serviceAvatar = $serviceManager->get('\DragonJsonServerAvatar\Service\Avatar'); 
 		$avatar = $serviceAvatar->getAvatar();
 		$serviceAvatar->removeAvatar($avatar);
 	}
@@ -78,7 +78,7 @@ class Avatar
 	{
 		$serviceManager = $this->getServiceManager();
 
-		$serviceAvatar = $serviceManager->get('Avatar');
+		$serviceAvatar = $serviceManager->get('\DragonJsonServerAvatar\Service\Avatar');
 		return $avatar = $serviceAvatar->getAvatar()->toArray();
 	}
 	
@@ -91,9 +91,9 @@ class Avatar
 	{
 		$serviceManager = $this->getServiceManager();
 
-		$session = $serviceManager->get('Session')->getSession();
-		$avatars = $serviceManager->get('Avatar')->getAvatarsByAccountId($session->getAccountId());
-		return $serviceManager->get('Doctrine')->toArray($avatars);
+		$session = $serviceManager->get('\DragonJsonServerAccount\Service\Session')->getSession();
+		$avatars = $serviceManager->get('\DragonJsonServerAvatar\Service\Avatar')->getAvatarsByAccountId($session->getAccountId());
+		return $serviceManager->get('\DragonJsonServerDoctrine\Service\Doctrine')->toArray($avatars);
 	}
 	
 	/**
@@ -107,9 +107,9 @@ class Avatar
 	{
 		$serviceManager = $this->getServiceManager();
 
-		$serviceAvatar = $serviceManager->get('Avatar');
+		$serviceAvatar = $serviceManager->get('\DragonJsonServerAvatar\Service\Avatar');
 		$avatar = $serviceAvatar->getAvatar();
 		$avatars = $serviceAvatar->searchAvatarsByGameroundIdAndName($avatar->getGameroundId(), $name);
-		return $serviceManager->get('Doctrine')->toArray($avatars);
+		return $serviceManager->get('\DragonJsonServerDoctrine\Service\Doctrine')->toArray($avatars);
 	}
 }
