@@ -16,6 +16,14 @@ class Avatar
 {
 	use \DragonJsonServer\ServiceManagerTrait;
 
+    /**
+     * Methode zur Verbindungsprüfung
+     * @DragonJsonServerAccount\Annotation\Session
+     * @DragonJsonServerAvatar\Annotation\Avatar
+     */
+    public function ping()
+    {}
+
 	/**
 	 * Validiert die übergebene GameroundID und Namen
 	 * @param integer $gameround_id
