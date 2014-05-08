@@ -35,7 +35,7 @@ class Avatar
 	{
 		$serviceManager = $this->getServiceManager();
 
-		$gameround = $serviceManager->get('\DragonJsonServerGameround\Service\Gameround')->getGameroundByGameroundId($gameround_id);
+		$serviceManager->get('\DragonJsonServerGameround\Service\Gameround')->getGameroundByGameroundId($gameround_id);
 		$serviceAvatar = $serviceManager->get('\DragonJsonServerAvatar\Service\Avatar');
 		$serviceAvatar->validateName($name);
 		$avatar = $serviceAvatar->getAvatarByGameroundIdAndName($gameround_id, $name, false);
