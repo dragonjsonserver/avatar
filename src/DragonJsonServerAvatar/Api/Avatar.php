@@ -29,7 +29,6 @@ class Avatar
 	 * @param integer $gameround_id
 	 * @param string $name
      * @throws \DragonJsonServer\Exception
-     * @DragonJsonServerAccount\Annotation\Session
 	 */
 	public function validateGameroundIdAndName($gameround_id, $name)
 	{
@@ -41,7 +40,7 @@ class Avatar
 		$avatar = $serviceAvatar->getAvatarByGameroundIdAndName($gameround_id, $name, false);
 		if (null !== $avatar) {
 			throw new \DragonJsonServer\Exception(
-				'gameround_id and name not unique', 
+				'gameround_id and name not unique',
 				['gameround_id' => $gameround_id, 'name' => $name, 'avatar' => $avatar->toArray()]
 			);
 		}
